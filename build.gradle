@@ -22,6 +22,5 @@ repositories {
 
 dependencies {
     compile(group: 'org.apache.storm', name: 'storm-core', version: '1.0.2')
-    compile group: 'com.yahoofinance-api', name: 'YahooFinanceAPI', version: '3.5.0'
 }
 

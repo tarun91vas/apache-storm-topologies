@@ -27,20 +27,26 @@ public class YfBolt extends BaseBasicBolt {
 
     @Override
     public void execute(Tuple input, BasicOutputCollector collector) {
-        Boolean gain = true;
+        try {
+            Boolean gain = true;
 
-        String company = input.getString(0);
-        String timestamp = input.getString(1);
+            String company = input.getString(0);
+            String timestamp = input.getValue(1).toString();
 
-        Double price = input.getDoubleByField("price");
-        Double prev_close =  input.getDoubleByField("prev_close");
+            Integer price = input.getIntegerByField("price");
+            Integer prev_close =  input.getIntegerByField("prev_close");
 
-        if (price < prev_close) {
-            gain = false;
+            if (price < prev_close) {
+                gain = false;
+            }
+
+            System.out.println("Bolt emitting");
+            collector.emit(new Values(company, timestamp, price, gain));
+            writer.println(company + ", " + timestamp + ", " + price + ", " +gain);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-
-        collector.emit(new Values(company, timestamp, price, gain));
-        writer.println(company + ", " + timestamp + ", " + price + ", " +gain);
 
     }
 

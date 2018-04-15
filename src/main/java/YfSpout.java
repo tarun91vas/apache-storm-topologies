@@ -4,12 +4,10 @@ import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.topology.base.BaseRichSpout;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Values;
-import yahoofinance.YahooFinance;
-import yahoofinance.quotes.stock.StockQuote;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Map;
+import java.util.Random;
 
 public class YfSpout extends BaseRichSpout {
     private SpoutOutputCollector collector;
@@ -22,17 +20,18 @@ public class YfSpout extends BaseRichSpout {
     @Override
     public void nextTuple() {
         try {
-            StockQuote quote = YahooFinance.get("MSFT").getQuote();
+            Random rand = new Random();
 
-            BigDecimal price = quote.getPrice();
-            BigDecimal prev_close = quote.getPreviousClose();
+            Integer price = rand.nextInt(100);
+            Integer prev_close = rand.nextInt(100);
 
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-            collector.emit(new Values("MSFT", timestamp, price.doubleValue(), prev_close.doubleValue()));
+            System.out.println("Spout emitting");
+            collector.emit(new Values("MSFT", timestamp, price, prev_close));
 
         } catch (Exception e) {
-
+            throw new RuntimeException(e);
         }
 
     }

@@ -1,4 +1,4 @@
-package topology;
+package topologies;
 
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;
@@ -7,9 +7,9 @@ import org.apache.storm.topology.TopologyBuilder;
 import bolts.YfBolt;
 import spouts.YfSpout;
 
-public class TopologyMain {
+public class SimpleTopology {
     public static void main(String[] args) throws Exception{
-        //Build topology
+        //Build topologies
         TopologyBuilder builder = new TopologyBuilder();
         builder.setSpout("YF-Spout", new YfSpout(), 3);
         builder.setBolt("YF-Bolt", new YfBolt(), 3).shuffleGrouping("YF-Spout");
@@ -21,7 +21,7 @@ public class TopologyMain {
         //conf.setDebug(true);
         conf.put("fileToWrite", "/Users/z002n11/projects/stock-price-tracker/output.txt");
 
-        //Submit topology
+        //Submit topologies
         LocalCluster cluster = new LocalCluster();
         try {
             cluster.submitTopology("STOCK-PRICE-TRACKER", conf, topology);

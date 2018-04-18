@@ -15,4 +15,4 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'stock-price-tracker'
+rootProject.name = 'apache-storm-topologies'

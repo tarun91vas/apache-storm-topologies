@@ -1,9 +1,11 @@
-package simpleTopology;
+package topology;
 
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;
 import org.apache.storm.generated.StormTopology;
 import org.apache.storm.topology.TopologyBuilder;
+import bolts.YfBolt;
+import spouts.YfSpout;
 
 public class TopologyMain {
     public static void main(String[] args) throws Exception{

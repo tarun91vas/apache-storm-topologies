@@ -19,7 +19,7 @@ public class SimpleTopology {
         //Configure
         Config conf = new Config();
         //conf.setDebug(true);
-        conf.put("fileToWrite", "/Users/z002n11/projects/stock-price-tracker/output.txt");
+        conf.put("fileToWrite", "/Users/z002n11/apache-storm-topologies/output.txt");
 
         //Submit topologies
         LocalCluster cluster = new LocalCluster();
